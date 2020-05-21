@@ -2,7 +2,7 @@ import sys
 import time
 
 alphabet = "qwertyuiopåaäëüösdfghjklæø'<zxcvbnm,.-½1234567890+ QWERTYUIOPÅASDFGHJKLÆØZXCVBNM!#¤%&/()=?´`|>/*_;:"
-key = 420420
+myKey = "6F5EE78" # husk at convert hex til deci senere
 
 
 def slow(text):
@@ -12,7 +12,7 @@ def slow(text):
         time.sleep(0.03)
 
 
-def encoder(cleartext, key):
+def encoder(cleartext, key): # key gives som et hexadecimal-tal
     global alphabet
     final_list = []
     key = str(key)
@@ -24,7 +24,7 @@ def encoder(cleartext, key):
     return "".join(final_list)
 
 
-def decoder(encrypted_text, key):
+def decoder(encrypted_text, key): # key gives (igen) som et hexadecimal-tal
     global alphabet
     final_list = []
     for i in range(len(encrypted_text)):
@@ -39,12 +39,12 @@ while True:
     if what_option == "1":
         slow("hvilken besked vil du kryptere?")
         bravo_six_going_dark = input()
-        slow(encoder(bravo_six_going_dark, key))
+        slow(encoder(bravo_six_going_dark, myKey))
         print()
     elif what_option == "2":
         slow("hvad vil du dekryptere?")
         it_was_me_all_along = input()
-        slow(decoder(it_was_me_all_along, key))
+        slow(decoder(it_was_me_all_along, myKey))
         print()
 
 
