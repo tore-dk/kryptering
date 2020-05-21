@@ -12,21 +12,15 @@ def slow(text):
         time.sleep(0.03)
 
 
-def encoder(cleartext, key):  # alt skal være i lowercase indtil videre # OG UDEN ÆØÅ ### DET VIRKER NÆSTEN ###
+def encoder(cleartext, key):
     global alphabet
-    final_list = []  # husk at joine string til sidst
+    final_list = []
     key = str(key)
 
     for letter in range(len(cleartext)):
-        cont = True
-        for j in range(len(alphabet)):
-            if cleartext[letter] == alphabet[j] and cont:
-                step = int(key[letter % len(key)])
-                final_list.append(alphabet[(j + step) % len(alphabet)])
-                cont = False
-        if cont:
-            final_list.append(cleartext[letter])
-    return "".join(final_list)
+        place = alphabet.find(cleartext[letter])
+        step = int(key[letter % len(key)])
+        final_list.append(alphabet[(place + step) % len(alphabet)])
 
 
 def decoder(encrypted_text, key):
