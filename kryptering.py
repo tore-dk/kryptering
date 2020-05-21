@@ -19,7 +19,7 @@ def encoder(cleartext, key): # key gives som et hexadecimal-tal
 
     for letter in range(len(cleartext)):
         place = alphabet.find(cleartext[letter])
-        step = int(key[letter % len(key)])
+        step = int(key[letter % len(key)], 16)
         final_list.append(alphabet[(place + step) % len(alphabet)])
     return "".join(final_list)
 
@@ -29,7 +29,8 @@ def decoder(encrypted_text, key): # key gives (igen) som et hexadecimal-tal
     final_list = []
     for i in range(len(encrypted_text)):
         place = alphabet.find(encrypted_text[i])
-        final_list.append(alphabet[place - int(str(key)[i % len(str(key))])])
+        displacement = int(str(key)[i % len(str(key))], 16)
+        final_list.append(alphabet[place - displacement])
     return "".join(final_list)
 
 
