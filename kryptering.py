@@ -21,6 +21,7 @@ def encoder(cleartext, key):
         place = alphabet.find(cleartext[letter])
         step = int(key[letter % len(key)])
         final_list.append(alphabet[(place + step) % len(alphabet)])
+    return "".join(final_list)
 
 
 def decoder(encrypted_text, key):
@@ -28,7 +29,6 @@ def decoder(encrypted_text, key):
     final_list = []
     for i in range(len(encrypted_text)):
         place = alphabet.find(encrypted_text[i])
-#        displacement = den i'ende ciffer i key gange det i-1'ne ciffer i key
         final_list.append(alphabet[place - int(str(key)[i % len(str(key))])])
     return "".join(final_list)
 
