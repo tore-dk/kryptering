@@ -1,8 +1,15 @@
-import random
-import string
+import sys
+import time
 
 alphabet = "qwertyuiopåaäëüösdfghjklæø'<zxcvbnm,.-½1234567890+ QWERTYUIOPÅASDFGHJKLÆØZXCVBNM!#¤%&/()=?´`|>/*_;:"
 key = 420420
+
+
+def slow(text):
+    for char in text:
+        sys.stdout.write(char)
+        sys.stdout.flush()
+        time.sleep(0.03)
 
 
 def encoder(cleartext, key):  # alt skal være i lowercase indtil videre # OG UDEN ÆØÅ ### DET VIRKER NÆSTEN ###
@@ -33,12 +40,17 @@ def decoder(encrypted_text, key):
 
 
 while True:
-    what_option = input("vil du kyptere? [skriv 1], eller vil du DEkryptere? [skriv 2]")
+    slow("vil du kryptere? [skriv 1], eller vil du DEkryptere? [skriv 2]")
+    what_option = input()
     if what_option == "1":
-        bravo_six_going_dark = input("hvilken besked vil du kyptere?")
-        print(encoder(bravo_six_going_dark, key))
+        slow("hvilken besked vil du kryptere?")
+        bravo_six_going_dark = input()
+        slow(encoder(bravo_six_going_dark, key))
+        print()
     elif what_option == "2":
-        it_was_me_all_along = input("hvad vil du dekryptere?")
-        print(decoder(it_was_me_all_along, key))
+        slow("hvad vil du dekryptere?")
+        it_was_me_all_along = input()
+        slow(decoder(it_was_me_all_along, key))
+        print()
 
 
