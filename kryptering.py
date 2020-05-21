@@ -3,7 +3,7 @@ import sys
 import time
 
 alphabet = "qwertyuiopåaäëüösdfghjklæø'<zxcvbnm,.-½1234567890+ QWERTYUIOPÅASDFGHJKLÆØZXCVBNM!#¤%&/()=?´`|>/*_;:"
-myKey = "TOREOGTOKE" # Det er i base 36. Det bliver konverteret senere :)
+myKey = "TOREOGTOKE" # Det er i base 36. Det bliver konverteret senere :). Desuden er det en string husk lige det
 base = 36
 
 
@@ -18,10 +18,13 @@ def encoder(cleartext, key): # key gives som et hexadecimal-tal
     global alphabet
     final_list = []
     key = str(key)
+    keysum = 0
+    for i in key:
+        keysum += int(i, base)
 
     for letter in range(len(cleartext)):
         place = alphabet.find(cleartext[letter])
-        step = int(key[letter % len(key)], base)
+        step = int(key[letter % len(key)], base) + keysum + len(cleartext)
         final_list.append(alphabet[(place + step) % len(alphabet)])
     return "".join(final_list)
 
@@ -29,10 +32,14 @@ def encoder(cleartext, key): # key gives som et hexadecimal-tal
 def decoder(encrypted_text, key): # key gives (igen) som et hexadecimal-tal
     global alphabet
     final_list = []
+    keysum = 0
+    for i in key:
+        keysum += int(i, base)
+
     for i in range(len(encrypted_text)):
         place = alphabet.find(encrypted_text[i])
-        displacement = int(str(key)[i % len(str(key))], base)
-        final_list.append(alphabet[place - displacement])
+        displacement = int(str(key)[i % len(str(key))], base) + keysum + len(encrypted_text)
+        final_list.append(alphabet[(place - displacement) % len(alphabet)])
     return "".join(final_list)
 
 
