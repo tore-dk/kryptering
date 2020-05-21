@@ -2,7 +2,8 @@ import sys
 import time
 
 alphabet = "qwertyuiopåaäëüösdfghjklæø'<zxcvbnm,.-½1234567890+ QWERTYUIOPÅASDFGHJKLÆØZXCVBNM!#¤%&/()=?´`|>/*_;:"
-myKey = "6F5EE78" # husk at convert hex til deci senere
+myKey = "TOREOGTOKE" # Det er i base 36. Det bliver konverteret senere :)
+base = 36
 
 
 def slow(text):
@@ -19,7 +20,7 @@ def encoder(cleartext, key): # key gives som et hexadecimal-tal
 
     for letter in range(len(cleartext)):
         place = alphabet.find(cleartext[letter])
-        step = int(key[letter % len(key)], 16)
+        step = int(key[letter % len(key)], base)
         final_list.append(alphabet[(place + step) % len(alphabet)])
     return "".join(final_list)
 
@@ -29,7 +30,7 @@ def decoder(encrypted_text, key): # key gives (igen) som et hexadecimal-tal
     final_list = []
     for i in range(len(encrypted_text)):
         place = alphabet.find(encrypted_text[i])
-        displacement = int(str(key)[i % len(str(key))], 16)
+        displacement = int(str(key)[i % len(str(key))], base)
         final_list.append(alphabet[place - displacement])
     return "".join(final_list)
 
